@@ -1,721 +1,187 @@
-TYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="theme-color" content="#0a0f1e"/>
 <meta name="description" content="Chenjela — AI Study Assistant for Zambian Secondary School Students"/>
-<link rel="manifest" href="manifest.json"/>
 <title>Chenjela — Study Smart</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Outfit',sans-serif;background:#0a0f1e;color:#e8eaf6;overflow-x:hidden}
-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#0a0f1e}::-webkit-scrollbar-thumb{background:#2a5298;border-radius:4px}
-
-/* LOGIN */
-.login-bg{min-height:100vh;background:linear-gradient(135deg,#0a0f1e 0%,#0d1f3c 50%,#0a0f1e 100%);display:flex;align-items:center;justify-content:center;padding:20px;position:relative;overflow:hidden}
-.login-bg::before{content:'';position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(42,82,152,0.15) 0%,transparent 70%);top:-100px;right:-100px;border-radius:50%}
-.login-bg::after{content:'';position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(255,180,0,0.08) 0%,transparent 70%);bottom:-50px;left:-50px;border-radius:50%}
-.login-card{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:24px;padding:48px 40px;width:100%;max-width:440px;position:relative;z-index:1}
+body{font-family:'Outfit',sans-serif;background:#0a0f1e;color:#e8eaf6}
+.login-bg{min-height:100vh;background:linear-gradient(135deg,#0a0f1e 0%,#0d1f3c 50%,#0a0f1e 100%);display:flex;align-items:center;justify-content:center;padding:20px}
+.login-card{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:24px;padding:40px 32px;width:100%;max-width:420px}
 .logo{font-family:'Playfair Display',serif;font-size:32px;color:#fff;margin-bottom:4px}
 .logo span{color:#f5b400}
-.tagline{font-size:13px;color:#8899bb;margin-bottom:36px}
-.login-title{font-size:20px;font-weight:600;margin-bottom:8px}
-.login-sub{font-size:13px;color:#8899bb;margin-bottom:28px}
+.tagline{font-size:13px;color:#8899bb;margin-bottom:32px}
 .role-btn{width:100%;padding:16px 20px;border-radius:14px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:#e8eaf6;font-family:'Outfit',sans-serif;font-size:15px;font-weight:500;cursor:pointer;margin-bottom:12px;display:flex;align-items:center;gap:14px;transition:all 0.2s}
-.role-btn:hover{background:rgba(42,82,152,0.3);border-color:#2a5298;transform:translateX(4px)}
-
-/* APP SHELL */
+.role-btn:hover{background:rgba(42,82,152,0.3);border-color:#2a5298}
 .app-shell{display:flex;height:100vh;overflow:hidden;background:#0a0f1e}
-.sidebar{width:240px;background:rgba(255,255,255,0.03);border-right:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;padding:24px 16px;flex-shrink:0;overflow-y:auto}
-.sidebar-logo{font-family:'Playfair Display',serif;font-size:22px;color:#fff;padding:0 8px;margin-bottom:4px}
+.sidebar{width:220px;background:rgba(255,255,255,0.03);border-right:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;padding:20px 14px;flex-shrink:0;overflow-y:auto}
+.sidebar-logo{font-family:'Playfair Display',serif;font-size:20px;color:#fff;padding:0 8px;margin-bottom:4px}
 .sidebar-logo span{color:#f5b400}
-.sidebar-role{font-size:11px;color:#8899bb;padding:0 8px;margin-bottom:28px;text-transform:uppercase;letter-spacing:1px}
+.sidebar-role{font-size:11px;color:#8899bb;padding:0 8px;margin-bottom:24px;text-transform:uppercase;letter-spacing:1px}
 .nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:14px;color:#8899bb;transition:all 0.2s;margin-bottom:4px}
 .nav-item:hover{background:rgba(255,255,255,0.05);color:#e8eaf6}
 .nav-item.active{background:linear-gradient(135deg,#1a3a6e,#2a5298);color:#fff;font-weight:600}
-.nav-icon{font-size:18px;width:24px;text-align:center}
 .sidebar-bottom{margin-top:auto}
 .points-chip{background:rgba(245,180,0,0.1);border:1px solid rgba(245,180,0,0.2);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px;font-size:13px;color:#f5b400;font-weight:600;margin-bottom:12px}
-.logout-btn{width:100%;padding:10px;background:rgba(255,60,60,0.08);border:1px solid rgba(255,60,60,0.15);border-radius:10px;color:#ff6b6b;font-family:'Outfit',sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s}
-.logout-btn:hover{background:rgba(255,60,60,0.15)}
-
-/* MAIN */
-.main{flex:1;overflow-y:auto;padding:28px 32px}
-.page-title{font-family:'Playfair Display',serif;font-size:26px;margin-bottom:4px}
-.page-sub{font-size:13px;color:#8899bb;margin-bottom:28px}
-.card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:20px;margin-bottom:16px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
-.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px}
-.stat-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:20px}
-.stat-icon{font-size:28px;margin-bottom:10px}
-.stat-val{font-size:28px;font-weight:700;margin-bottom:2px}
+.logout-btn{width:100%;padding:10px;background:rgba(255,60,60,0.08);border:1px solid rgba(255,60,60,0.15);border-radius:10px;color:#ff6b6b;font-family:'Outfit',sans-serif;font-size:13px;cursor:pointer}
+.main{flex:1;overflow-y:auto;padding:24px 28px}
+.page-title{font-family:'Playfair Display',serif;font-size:24px;margin-bottom:4px}
+.page-sub{font-size:13px;color:#8899bb;margin-bottom:24px}
+.card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:18px;margin-bottom:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px}
+.stat-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:18px}
+.stat-icon{font-size:26px;margin-bottom:8px}
+.stat-val{font-size:26px;font-weight:700;margin-bottom:2px}
 .stat-label{font-size:12px;color:#8899bb}
-.section-title{font-size:16px;font-weight:600;margin-bottom:14px}
-
-/* CHAT */
-.chat-area{height:360px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;margin-bottom:16px;padding-right:4px}
-.msg{max-width:82%;padding:12px 16px;border-radius:16px;font-size:14px;line-height:1.6}
+.section-title{font-size:15px;font-weight:600;margin-bottom:12px}
+.chat-area{height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.msg{max-width:82%;padding:11px 15px;border-radius:14px;font-size:14px;line-height:1.6}
 .msg.user{background:linear-gradient(135deg,#1a3a6e,#2a5298);align-self:flex-end;border-bottom-right-radius:4px}
 .msg.assistant{background:rgba(255,255,255,0.06);align-self:flex-start;border-bottom-left-radius:4px;white-space:pre-wrap}
 .chat-input-row{display:flex;gap:10px}
-.chat-input{flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 16px;color:#e8eaf6;font-family:'Outfit',sans-serif;font-size:14px;outline:none}
+.chat-input{flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:11px 15px;color:#e8eaf6;font-family:'Outfit',sans-serif;font-size:14px;outline:none}
 .chat-input:focus{border-color:#2a5298}
-
-/* BUTTONS */
-.primary-btn{background:linear-gradient(135deg,#1a3a6e,#2a5298);border:none;border-radius:12px;padding:12px 24px;color:#fff;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:opacity 0.2s}
-.primary-btn:hover{opacity:0.85}
+.primary-btn{background:linear-gradient(135deg,#1a3a6e,#2a5298);border:none;border-radius:12px;padding:11px 22px;color:#fff;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer}
 .primary-btn:disabled{opacity:0.4;cursor:not-allowed}
-.send-btn{background:linear-gradient(135deg,#1a3a6e,#2a5298);border:none;border-radius:12px;padding:12px 20px;color:#fff;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer}
+.send-btn{background:linear-gradient(135deg,#1a3a6e,#2a5298);border:none;border-radius:12px;padding:11px 18px;color:#fff;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer}
 .send-btn:disabled{opacity:0.4;cursor:not-allowed}
-
-/* PILLS */
-.select-row{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-.select-pill{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:6px 16px;font-size:13px;color:#8899bb;cursor:pointer;transition:all 0.2s;font-family:'Outfit',sans-serif}
+.select-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.select-pill{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:5px 14px;font-size:13px;color:#8899bb;cursor:pointer;font-family:'Outfit',sans-serif}
 .select-pill.active{background:linear-gradient(135deg,#1a3a6e,#2a5298);color:#fff;border-color:transparent;font-weight:600}
-
-/* QUIZ */
-.quiz-opt{width:100%;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;color:#e8eaf6;font-family:'Outfit',sans-serif;font-size:14px;cursor:pointer;margin-bottom:10px;text-align:left;transition:all 0.2s}
+.quiz-opt{width:100%;padding:13px 16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;color:#e8eaf6;font-family:'Outfit',sans-serif;font-size:14px;cursor:pointer;margin-bottom:9px;text-align:left;transition:all 0.2s}
 .quiz-opt:hover{background:rgba(42,82,152,0.2);border-color:#2a5298}
 .quiz-opt.correct{background:rgba(0,200,100,0.15);border-color:#00c864;color:#00c864}
 .quiz-opt.wrong{background:rgba(255,60,60,0.15);border-color:#ff3c3c;color:#ff6b6b}
-
-/* PROGRESS */
-.progress-bar-bg{background:rgba(255,255,255,0.06);border-radius:8px;height:8px;margin-bottom:6px}
-.progress-bar{height:8px;border-radius:8px;background:linear-gradient(90deg,#2a5298,#f5b400);transition:width 0.5s}
-
-/* BADGES */
-.badge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.badge-item{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:16px 12px;text-align:center}
+.progress-bar-bg{background:rgba(255,255,255,0.06);border-radius:8px;height:7px;margin-bottom:5px}
+.progress-bar{height:7px;border-radius:8px;background:linear-gradient(90deg,#2a5298,#f5b400);transition:width 0.5s}
+.badge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.badge-item{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:14px 10px;text-align:center}
 .badge-item.earned{border-color:rgba(245,180,0,0.3);background:rgba(245,180,0,0.05)}
-.badge-emoji{font-size:28px;margin-bottom:6px}
-.badge-name{font-size:12px;font-weight:600;margin-bottom:2px}
+.badge-emoji{font-size:26px;margin-bottom:5px}
+.badge-name{font-size:11px;font-weight:600;margin-bottom:2px}
 .badge-desc{font-size:10px;color:#8899bb}
-
-/* LEADERBOARD */
-.leaderboard-row{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:12px;margin-bottom:8px;background:rgba(255,255,255,0.03)}
+.leaderboard-row{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;margin-bottom:7px;background:rgba(255,255,255,0.03)}
 .leaderboard-row.you{background:rgba(42,82,152,0.15);border:1px solid rgba(42,82,152,0.2)}
-
-/* NOTIFICATIONS */
-.notif-item{display:flex;gap:14px;padding:14px;border-radius:12px;background:rgba(255,255,255,0.03);margin-bottom:10px;border:1px solid rgba(255,255,255,0.05)}
-
-/* TEXTAREA */
-.textarea{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px;color:#e8eaf6;font-family:'Outfit',sans-serif;font-size:14px;resize:vertical;min-height:160px;outline:none;line-height:1.6}
+.notif-item{display:flex;gap:12px;padding:13px;border-radius:12px;background:rgba(255,255,255,0.03);margin-bottom:9px;border:1px solid rgba(255,255,255,0.05)}
+.textarea{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:13px;color:#e8eaf6;font-family:'Outfit',sans-serif;font-size:14px;resize:vertical;min-height:150px;outline:none;line-height:1.6}
 .textarea:focus{border-color:#2a5298}
-.feedback-box{background:rgba(0,200,100,0.05);border:1px solid rgba(0,200,100,0.15);border-radius:12px;padding:16px;font-size:13px;line-height:1.8;color:#c8d0e8;white-space:pre-wrap;margin-top:14px}
-.notes-box{background:rgba(42,82,152,0.1);border:1px solid rgba(42,82,152,0.2);border-radius:12px;padding:18px;font-size:14px;line-height:1.8;color:#c8d0e8;margin-bottom:16px}
-
-/* TEACHER */
-.teacher-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
-.t-tab{padding:8px 18px;border-radius:20px;font-size:13px;cursor:pointer;border:1px solid rgba(255,255,255,0.1);background:transparent;color:#8899bb;font-family:'Outfit',sans-serif;transition:all 0.2s}
+.feedback-box{background:rgba(0,200,100,0.05);border:1px solid rgba(0,200,100,0.15);border-radius:12px;padding:14px;font-size:13px;line-height:1.8;color:#c8d0e8;white-space:pre-wrap;margin-top:12px}
+.notes-box{background:rgba(42,82,152,0.1);border:1px solid rgba(42,82,152,0.2);border-radius:12px;padding:16px;font-size:14px;line-height:1.8;color:#c8d0e8;margin-bottom:14px}
+.teacher-tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.t-tab{padding:7px 16px;border-radius:20px;font-size:13px;cursor:pointer;border:1px solid rgba(255,255,255,0.1);background:transparent;color:#8899bb;font-family:'Outfit',sans-serif}
 .t-tab.active{background:linear-gradient(135deg,#1a3a6e,#2a5298);color:#fff;border-color:transparent;font-weight:600}
-.student-row{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:10px;background:rgba(255,255,255,0.03);margin-bottom:8px}
-.avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;flex-shrink:0}
-.green-chip{background:rgba(0,200,100,0.1);color:#00c864;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:600}
-.red-chip{background:rgba(255,60,60,0.1);color:#ff6b6b;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:600}
-.yellow-chip{background:rgba(245,180,0,0.1);color:#f5b400;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:600}
-
-/* INSTALL BANNER */
-.install-banner{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#1a3a6e,#2a5298);border-radius:16px;padding:14px 24px;display:flex;align-items:center;gap:14px;z-index:1000;box-shadow:0 8px 32px rgba(0,0,0,0.4);max-width:360px;width:90%}
-.install-banner p{font-size:13px;flex:1;line-height:1.4}
-.install-btn{background:#f5b400;color:#0a0f1e;border:none;border-radius:10px;padding:8px 16px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
-.dismiss-btn{background:transparent;border:none;color:rgba(255,255,255,0.5);font-size:18px;cursor:pointer;padding:0 4px}
-
+.student-row{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;background:rgba(255,255,255,0.03);margin-bottom:7px}
+.avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0}
+.green-chip{background:rgba(0,200,100,0.1);color:#00c864;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:600}
+.red-chip{background:rgba(255,60,60,0.1);color:#ff6b6b;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:600}
+.yellow-chip{background:rgba(245,180,0,0.1);color:#f5b400;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:600}
 @media(max-width:768px){
-  .sidebar{width:60px}
-  .sidebar-logo span:last-child,.sidebar-role,.nav-item span:not(.nav-icon),.points-chip span:last-child{display:none}
-  .nav-item{justify-content:center;padding:10px}
-  .main{padding:20px 14px}
-  .grid2,.grid3{grid-template-columns:1fr}
-  .badge-grid{grid-template-columns:1fr 1fr}
-  .login-card{padding:32px 24px}
+.sidebar{width:56px}
+.sidebar-logo span:last-child,.sidebar-role,.nav-item span:not(:first-child),.points-chip span:last-child{display:none}
+.nav-item{justify-content:center;padding:10px}
+.main{padding:18px 14px}
+.grid2,.grid3{grid-template-columns:1fr}
+.badge-grid{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
 <body>
-
-<div id="root"></div>
-
+<div id="app"></div>
 <script>
-const SUBJECTS = ["English","Mathematics","Science","Literature"];
-const GRADES = ["Grade 8","Grade 9","Grade 10","Grade 11","Grade 12"];
-const SAMPLE_NOTES = {
-  English:"Literary devices include metaphor, simile, personification, and alliteration. These are used by authors to enhance writing and create vivid imagery. A metaphor is a direct comparison: 'Life is a journey.' A simile uses 'like' or 'as': 'She runs like the wind.'",
-  Mathematics:"Quadratic equations take the form ax² + bx + c = 0. They can be solved by factoring, completing the square, or using the quadratic formula: x = (-b ± √(b²-4ac)) / 2a. The discriminant b²-4ac tells us the nature of the roots.",
-  Science:"Photosynthesis: 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂. Plants use chlorophyll to absorb sunlight. The process occurs in two stages: the light-dependent reactions in the thylakoid and the Calvin cycle in the stroma.",
-  Literature:"Things Fall Apart by Chinua Achebe follows Okonkwo, an Igbo warrior. The novel explores colonialism's impact on traditional African society. Key themes include masculinity, tradition vs change, and the clash of cultures."
+const SUBJECTS=["English","Mathematics","Science","Literature"];
+const GRADES=["Grade 8","Grade 9","Grade 10","Grade 11","Grade 12"];
+const NOTES={
+English:"Literary devices include metaphor, simile, personification, and alliteration. A metaphor is a direct comparison without 'like' or 'as' — for example: 'Life is a journey.' A simile uses 'like' or 'as' — for example: 'She runs like the wind.' Personification gives human qualities to non-human things.",
+Mathematics:"Quadratic equations take the form ax² + bx + c = 0. They can be solved by factoring, completing the square, or the quadratic formula: x = (-b ± √(b²-4ac)) / 2a. The discriminant b²-4ac tells us the nature of the roots: positive = two real roots, zero = one root, negative = no real roots.",
+Science:"Photosynthesis: 6CO₂ + 6H₂O + light → C₆H₁₂O₆ + 6O₂. Plants use chlorophyll to absorb sunlight. The process has two stages: light-dependent reactions in the thylakoid membrane, and the Calvin cycle in the stroma of the chloroplast.",
+Literature:"Things Fall Apart by Chinua Achebe follows Okonkwo, a respected Igbo warrior in Nigeria. The novel explores the devastating impact of European colonialism on traditional African society. Key themes include masculinity and pride, tradition versus change, and the clash of cultures."
 };
-const QUIZ_QUESTIONS = {
-  English:[
-    {q:"What is a metaphor?",options:["A direct comparison without 'like' or 'as'","A comparison using 'like' or 'as'","A type of rhyme scheme","A narrative technique"],answer:0},
-    {q:"What does 'protagonist' mean?",options:["The villain of a story","The main character","The narrator","A minor character"],answer:1}
-  ],
-  Mathematics:[
-    {q:"What is the quadratic formula?",options:["x = -b/2a","x = (-b ± √(b²-4ac)) / 2a","x = b² - 4ac","x = a² + b²"],answer:1},
-    {q:"What is the value of π approximately?",options:["2.14","3.14","4.13","1.73"],answer:1}
-  ],
-  Science:[
-    {q:"What gas do plants release during photosynthesis?",options:["Carbon dioxide","Nitrogen","Oxygen","Hydrogen"],answer:2},
-    {q:"What is the powerhouse of the cell?",options:["Nucleus","Ribosome","Mitochondria","Vacuole"],answer:2}
-  ],
-  Literature:[
-    {q:"Who wrote 'Things Fall Apart'?",options:["Wole Soyinka","Ngugi wa Thiong'o","Chinua Achebe","Nadine Gordimer"],answer:2},
-    {q:"What does 'Things Fall Apart' primarily explore?",options:["Romance","Colonial impact on African society","Science fiction","Political satire"],answer:1}
-  ]
+const QUIZ={
+English:[
+{q:"What is a metaphor?",o:["A direct comparison without 'like' or 'as'","A comparison using 'like' or 'as'","A type of rhyme scheme","A narrative technique"],a:0},
+{q:"What does 'protagonist' mean?",o:["The villain of a story","The main character","The narrator","A minor character"],a:1}
+],
+Mathematics:[
+{q:"What is the quadratic formula?",o:["x = -b/2a","x = (-b ± √(b²-4ac)) / 2a","x = b² - 4ac","x = a² + b²"],a:1},
+{q:"What is the approximate value of π?",o:["2.14","3.14","4.13","1.73"],a:1}
+],
+Science:[
+{q:"What gas do plants release during photosynthesis?",o:["Carbon dioxide","Nitrogen","Oxygen","Hydrogen"],a:2},
+{q:"What is the powerhouse of the cell?",o:["Nucleus","Ribosome","Mitochondria","Vacuole"],a:2}
+],
+Literature:[
+{q:"Who wrote 'Things Fall Apart'?",o:["Wole Soyinka","Ngugi wa Thiong'o","Chinua Achebe","Nadine Gordimer"],a:2},
+{q:"What does 'Things Fall Apart' primarily explore?",o:["Romance","Colonial impact on African society","Science fiction","Political satire"],a:1}
+]
 };
 const BADGES=[
-  {icon:"🌟",name:"First Quiz",desc:"Complete your first quiz",earned:true},
-  {icon:"🔥",name:"On Fire",desc:"3 day study streak",earned:true},
-  {icon:"📚",name:"Bookworm",desc:"Read 10 study notes",earned:false},
-  {icon:"🏆",name:"Top Student",desc:"Score 90%+ on a quiz",earned:false},
-  {icon:"💡",name:"Curious Mind",desc:"Ask 20 AI questions",earned:false},
-  {icon:"⚡",name:"Speed Learner",desc:"Complete 5 quizzes in a day",earned:false}
+{icon:"🌟",name:"First Quiz",desc:"Complete your first quiz",earned:true},
+{icon:"🔥",name:"On Fire",desc:"3 day study streak",earned:true},
+{icon:"📚",name:"Bookworm",desc:"Read 10 study notes",earned:false},
+{icon:"🏆",name:"Top Student",desc:"Score 90%+ on a quiz",earned:false},
+{icon:"💡",name:"Curious Mind",desc:"Ask 20 AI questions",earned:false},
+{icon:"⚡",name:"Speed Learner",desc:"Complete 5 quizzes in a day",earned:false}
 ];
-const LEADERBOARD=[
-  {rank:1,name:"Mutinta C.",grade:"Grade 10",points:2450,badge:"🥇"},
-  {rank:2,name:"Chanda M.",grade:"Grade 11",points:2180,badge:"🥈"},
-  {rank:3,name:"Lubasi T.",grade:"Grade 9",points:1990,badge:"🥉"},
-  {rank:4,name:"Nalwimba K.",grade:"Grade 12",points:1750,badge:"4️⃣"},
-  {rank:5,name:"You",grade:"Grade 10",points:1200,badge:"5️⃣"}
+const LB=[
+{rank:1,name:"Mutinta C.",grade:"Grade 10",pts:2450,badge:"🥇"},
+{rank:2,name:"Chanda M.",grade:"Grade 11",pts:2180,badge:"🥈"},
+{rank:3,name:"Lubasi T.",grade:"Grade 9",pts:1990,badge:"🥉"},
+{rank:4,name:"Nalwimba K.",grade:"Grade 12",pts:1750,badge:"4️⃣"},
+{rank:5,name:"You",grade:"Grade 10",pts:1200,badge:"5️⃣"}
 ];
-const ANNOUNCEMENTS=[
-  {title:"Mathematics Test",msg:"Grade 10 Mathematics test on Friday. Chapters 5-7.",time:"2h ago",icon:"📐"},
-  {title:"Study Reminder",msg:"You have not studied English today. Keep your streak alive!",time:"5h ago",icon:"📖"},
-  {title:"New Notes Added",msg:"Science notes for Grade 9 Chapter 12 have been uploaded.",time:"1d ago",icon:"🔬"}
+const NOTIFS=[
+{title:"Mathematics Test",msg:"Grade 10 Mathematics test on Friday. Chapters 5-7.",time:"2h ago",icon:"📐"},
+{title:"Study Reminder",msg:"You have not studied English today. Keep your streak alive!",time:"5h ago",icon:"📖"},
+{title:"New Notes Added",msg:"Science notes for Grade 9 Chapter 12 uploaded.",time:"1d ago",icon:"🔬"},
+{title:"Quiz Completed!",msg:"You scored 2/2 on Mathematics. +100 points!",time:"3h ago",icon:"🎯"},
+{title:"Study Streak",msg:"Mwashinka! 3 days in a row!",time:"1d ago",icon:"🔥"}
 ];
 
-// STATE
-let screen="login", role=null, activeTab="dashboard";
-let subject="Mathematics", grade="Grade 10";
-let aiMessages=[{role:"assistant",text:"Mwabonwa! 👋 I am Chenjela, your AI Study Assistant. Ask me anything about your schoolwork and I will explain it step by step! 📚"}];
-let aiLoading=false;
-let quizActive=false, quizIndex=0, quizAnswers=[], quizDone=false;
-let points=1200, streak=3;
-let essay="", essayFeedback=null, essayLoading=false;
-let teacherTab="overview";
-let deferredPrompt=null, showInstallBanner=false;
+let screen="login",role=null,tab="dashboard";
+let subject="Mathematics",grade="Grade 10";
+let msgs=[{r:"ai",t:"Mwabonwa! 👋 I am Chenjela, your AI Study Assistant. Ask me anything about your schoolwork! 📚"}];
+let aiLoading=false,pts=1200,streak=3;
+let essay="",feedback=null,essayLoading=false;
+let ttab="overview";
+let qActive=false,qIdx=0,qAns=[],qDone=false;
 
-// PWA INSTALL
-window.addEventListener('beforeinstallprompt',(e)=>{
-  e.preventDefault();
-  deferredPrompt=e;
-  showInstallBanner=true;
-  render();
-});
+function $(id){return document.getElementById(id)}
+function render(){$('app').innerHTML=html();bindEvents()}
+function scrollChat(){const c=$('chat');if(c)c.scrollTop=c.scrollHeight}
 
-function installApp(){
-  if(deferredPrompt){
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(()=>{deferredPrompt=null;showInstallBanner=false;render();});
-  }
+function html(){
+  if(screen==="login")return loginHTML();
+  return appHTML();
 }
 
-// RENDER ENGINE
-function render(){
-  document.getElementById('root').innerHTML = buildHTML();
-  attachEvents();
-  if(activeTab==='ai') scrollChat();
+function loginHTML(){
+  return `<div class="login-bg"><div class="login-card">
+    <div class="logo">Chenj<span>ela</span></div>
+    <div class="tagline">Study Smart — Powered by AI 🇿🇲</div>
+    <div style="font-size:18px;font-weight:600;margin-bottom:6px">Welcome! Sign in as</div>
+    <div style="font-size:13px;color:#8899bb;margin-bottom:24px">Choose your account type</div>
+    ${[["student","🎒","Student","AI help, quizzes & study notes"],["teacher","👨‍🏫","Teacher","Manage classes & track progress"],["parent","👨‍👩‍👧","Parent","Monitor your child's learning"]].map(([r,ic,lb,sb])=>`
+    <button class="role-btn" onclick="login('${r}')">
+      <span style="font-size:22px">${ic}</span>
+      <div style="text-align:left"><div style="font-weight:600">${lb}</div><div style="font-size:12px;color:#8899bb">${sb}</div></div>
+    </button>`).join('')}
+    <div style="text-align:center;font-size:11px;color:#445;margin-top:16px">Made in Zambia 🇿🇲 by Njunjusha Alumba</div>
+  </div></div>`;
 }
 
-function scrollChat(){
-  const c=document.getElementById('chatArea');
-  if(c) c.scrollTop=c.scrollHeight;
+function navItems(){
+  if(role==="teacher")return[["dashboard","🏠","Dashboard"],["tools","🛠️","Tools"],["progress","📊","Progress"],["notifications","🔔","Alerts"]];
+  if(role==="parent")return[["dashboard","🏠","Dashboard"],["progress","📊","Progress"],["notifications","🔔","Alerts"]];
+  return[["dashboard","🏠","Dashboard"],["ai","🤖","AI Help"],["notes","📖","Notes"],["quiz","✏️","Quiz"],["essay","📝","Essay"],["progress","📊","Progress"],["rewards","🏆","Rewards"],["notifications","🔔","Alerts"]];
 }
 
-function buildHTML(){
-  let installHTML = showInstallBanner ? `
-    <div class="install-banner">
-      <p>📱 Install <strong>Chenjela</strong> on your phone for offline access!</p>
-      <button class="install-btn" onclick="installApp()">Install</button>
-      <button class="dismiss-btn" onclick="showInstallBanner=false;render()">✕</button>
-    </div>` : '';
-
-  if(screen==='login') return buildLogin() + installHTML;
-  return buildApp() + installHTML;
-}
-
-function buildLogin(){
-  return `
-  <div class="login-bg">
-    <div class="login-card">
-      <div class="logo">Chenj<span>ela</span></div>
-      <div class="tagline">Study Smart — Powered by AI 🇿🇲</div>
-      <div class="login-title">Welcome! Sign in as</div>
-      <div class="login-sub">Choose your account type to continue</div>
-      ${[
-        {r:"student",icon:"🎒",label:"Student",sub:"AI help, quizzes & study materials"},
-        {r:"teacher",icon:"👨‍🏫",label:"Teacher",sub:"Manage classes & track progress"},
-        {r:"parent",icon:"👨‍👩‍👧",label:"Parent",sub:"Monitor your child's learning"}
-      ].map(x=>`
-        <button class="role-btn" onclick="loginAs('${x.r}')">
-          <span style="font-size:22px">${x.icon}</span>
-          <div style="text-align:left">
-            <div style="font-weight:600">${x.label}</div>
-            <div style="font-size:12px;color:#8899bb;margin-top:2px">${x.sub}</div>
-          </div>
-        </button>`).join('')}
-      <div style="text-align:center;font-size:11px;color:#556;margin-top:16px">Made in Zambia 🇿🇲 by Njunjusha Alumba</div>
-    </div>
-  </div>`;
-}
-
-function getNavItems(){
-  if(role==='teacher') return [
-    {id:"dashboard",icon:"🏠",label:"Dashboard"},
-    {id:"tools",icon:"🛠️",label:"Teacher Tools"},
-    {id:"progress",icon:"📊",label:"Student Progress"},
-    {id:"notifications",icon:"🔔",label:"Notifications"}
-  ];
-  if(role==='parent') return [
-    {id:"dashboard",icon:"🏠",label:"Dashboard"},
-    {id:"progress",icon:"📊",label:"Progress"},
-    {id:"notifications",icon:"🔔",label:"Notifications"}
-  ];
-  return [
-    {id:"dashboard",icon:"🏠",label:"Dashboard"},
-    {id:"ai",icon:"🤖",label:"AI Help"},
-    {id:"notes",icon:"📖",label:"Study Notes"},
-    {id:"quiz",icon:"✏️",label:"Quiz"},
-    {id:"essay",icon:"📝",label:"Essay Help"},
-    {id:"progress",icon:"📊",label:"Progress"},
-    {id:"rewards",icon:"🏆",label:"Rewards"},
-    {id:"notifications",icon:"🔔",label:"Alerts"}
-  ];
-}
-
-function buildApp(){
-  const nav = getNavItems();
-  return `
-  <div class="app-shell">
+function appHTML(){
+  return `<div class="app-shell">
     <div class="sidebar">
       <div class="sidebar-logo">Chenj<span>ela</span></div>
-      <div class="sidebar-role">${role} account</div>
-      ${nav.map(n=>`
-        <div class="nav-item ${activeTab===n.id?'active':''}" onclick="setTab('${n.id}')">
-          <span class="nav-icon">${n.icon}</span>
-          <span>${n.label}</span>
-        </div>`).join('')}
-      <div class="sidebar-bottom">
-        <div class="points-chip">🏅 <span>${points.toLocaleString()} pts</span></div>
-        <button class="logout-btn" onclick="logout()">← Sign Out</button>
-      </div>
-    </div>
-    <div class="main" id="mainContent">
-      ${renderContent()}
-    </div>
-  </div>`;
-}
-
-function renderContent(){
-  if(role==='teacher'){
-    if(activeTab==='dashboard') return buildTeacherDashboard();
-    if(activeTab==='tools') return buildTeacherTools();
-    if(activeTab==='progress') return buildStudentProgress();
-    if(activeTab==='notifications') return buildNotifications();
-  }
-  if(role==='parent'){
-    if(activeTab==='dashboard') return buildParentDashboard();
-    if(activeTab==='progress') return buildProgress();
-    if(activeTab==='notifications') return buildNotifications();
-  }
-  if(activeTab==='dashboard') return buildStudentDashboard();
-  if(activeTab==='ai') return buildAI();
-  if(activeTab==='notes') return buildNotes();
-  if(activeTab==='quiz') return buildQuiz();
-  if(activeTab==='essay') return buildEssay();
-  if(activeTab==='progress') return buildProgress();
-  if(activeTab==='rewards') return buildRewards();
-  if(activeTab==='notifications') return buildNotifications();
-  return '';
-}
-
-function subjectPills(){
-  return `<div class="select-row">${SUBJECTS.map(s=>`<button class="select-pill ${subject===s?'active':''}" onclick="setSubject('${s}')">${s}</button>`).join('')}</div>`;
-}
-function gradePills(){
-  return `<div class="select-row">${GRADES.map(g=>`<button class="select-pill ${grade===g?'active':''}" onclick="setGrade('${g}')">${g}</button>`).join('')}</div>`;
-}
-
-function buildStudentDashboard(){
-  return `
-    <div class="page-title">Good day! 👋</div>
-    <div class="page-sub">Keep your ${streak}-day study streak alive! Mwizenge! 🔥</div>
-    <div class="grid3">
-      <div class="stat-card"><div class="stat-icon">⚡</div><div class="stat-val" style="color:#f5b400">${streak} Days</div><div class="stat-label">Study Streak</div></div>
-      <div class="stat-card"><div class="stat-icon">🏅</div><div class="stat-val" style="color:#2a5298">${points.toLocaleString()}</div><div class="stat-label">Total Points</div></div>
-      <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-val" style="color:#00c864">14</div><div class="stat-label">Quizzes Done</div></div>
-    </div>
-    <div class="grid2">
-      <div class="card">
-        <div class="section-title">📚 Quick Study</div>
-        ${subjectPills()}
-        <div class="notes-box">${SAMPLE_NOTES[subject]}</div>
-        <button class="primary-btn" onclick="setTab('ai')">Ask AI About This →</button>
-      </div>
-      <div class="card">
-        <div class="section-title">🎯 Today's Goals</div>
-        ${[{l:"Complete Math Quiz",p:100},{l:"Read Science Notes",p:60},{l:"Practice Essay Writing",p:0}].map(g=>`
-          <div style="margin-bottom:14px">
-            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px">
-              <span>${g.p===100?'✅':'⬜'} ${g.l}</span><span style="color:#8899bb">${g.p}%</span>
-            </div>
-            <div class="progress-bar-bg"><div class="progress-bar" style="width:${g.p}%"></div></div>
-          </div>`).join('')}
-      </div>
-    </div>
-    <div class="card">
-      <div class="section-title">🔔 Announcements</div>
-      ${ANNOUNCEMENTS.map(a=>`
-        <div class="notif-item">
-          <div style="font-size:22px">${a.icon}</div>
-          <div><div style="font-size:14px;font-weight:600;margin-bottom:3px">${a.title}</div>
-          <div style="font-size:13px;color:#8899bb">${a.msg}</div>
-          <div style="font-size:11px;color:#556;margin-top:4px">${a.time}</div></div>
-        </div>`).join('')}
-    </div>`;
-}
-
-function buildAI(){
-  return `
-    <div class="page-title">AI Homework Help 🤖</div>
-    <div class="page-sub">Ask anything — I will explain step by step in simple English</div>
-    ${subjectPills()}${gradePills()}
-    <div class="card">
-      <div class="chat-area" id="chatArea">
-        ${aiMessages.map(m=>`<div class="msg ${m.role}">${m.text}</div>`).join('')}
-        ${aiLoading?'<div class="msg assistant">⏳ Thinking...</div>':''}
-      </div>
-      <div class="chat-input-row">
-        <input class="chat-input" id="aiInput" placeholder="Ask about ${subject} — Grade ${grade.replace('Grade ','')}..." value="" onkeydown="if(event.key==='Enter')sendAI()"/>
-        <button class="send-btn" onclick="sendAI()" ${aiLoading?'disabled':''}>Send</button>
-      </div>
-      <div style="font-size:11px;color:#556;margin-top:8px">+10 points per question • Currently: ${subject} ${grade}</div>
-    </div>`;
-}
-
-function buildNotes(){
-  return `
-    <div class="page-title">Study Materials 📖</div>
-    <div class="page-sub">Notes and summaries for Grades 8–12</div>
-    ${subjectPills()}${gradePills()}
-    <div class="grid2">
-      ${["Chapter Summary","Key Definitions","Past Exam Tips","Practice Questions"].map((t,i)=>`
-        <div class="card">
-          <div style="font-size:24px;margin-bottom:10px">${["📄","🔑","📋","📐"][i]}</div>
-          <div style="font-weight:600;margin-bottom:6px">${t}</div>
-          <div style="font-size:13px;color:#8899bb;margin-bottom:14px">${subject} · ${grade}</div>
-          <div class="notes-box" style="font-size:13px;margin-bottom:12px">${SAMPLE_NOTES[subject].slice(0,100)}...</div>
-          <button class="primary-btn" onclick="setTab('ai')">Ask AI About This →</button>
-        </div>`).join('')}
-    </div>`;
-}
-
-function buildQuiz(){
-  if(!quizActive && !quizDone) return `
-    <div class="page-title">Quiz Generator ✏️</div>
-    <div class="page-sub">Test your knowledge and earn points</div>
-    ${subjectPills()}
-    <div class="card" style="text-align:center;padding:40px">
-      <div style="font-size:48px;margin-bottom:16px">🧠</div>
-      <div style="font-size:20px;font-weight:600;margin-bottom:8px">${subject} Quiz</div>
-      <div style="font-size:14px;color:#8899bb;margin-bottom:24px">${QUIZ_QUESTIONS[subject].length} questions · +50 points per correct answer</div>
-      <button class="primary-btn" onclick="startQuiz()">Start Quiz →</button>
-    </div>`;
-
-  if(quizActive && !quizDone){
-    const q=QUIZ_QUESTIONS[subject][quizIndex];
-    return `
-      <div class="page-title">Quiz — ${subject} ✏️</div>
-      <div class="page-sub">Question ${quizIndex+1} of ${QUIZ_QUESTIONS[subject].length}</div>
-      <div class="card">
-        <div class="progress-bar-bg" style="margin-bottom:20px"><div class="progress-bar" style="width:${(quizIndex/QUIZ_QUESTIONS[subject].length)*100}%"></div></div>
-        <div style="font-size:17px;font-weight:600;margin-bottom:20px;line-height:1.5">${q.q}</div>
-        ${q.options.map((o,i)=>`<button class="quiz-opt" onclick="answerQuiz(${i})">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}
-      </div>`;
-  }
-
-  const score=quizAnswers.filter((a,i)=>a===QUIZ_QUESTIONS[subject][i].answer).length;
-  return `
-    <div class="page-title">Quiz Results 🎯</div>
-    <div class="page-sub">${subject} — ${grade}</div>
-    <div class="card" style="text-align:center;padding:32px 20px">
-      <div style="font-size:48px;margin-bottom:12px">${score===QUIZ_QUESTIONS[subject].length?'🏆':score>0?'👍':'💪'}</div>
-      <div style="font-size:24px;font-weight:700;margin-bottom:8px">${score}/${QUIZ_QUESTIONS[subject].length} Correct</div>
-      <div style="color:#8899bb;font-size:14px;margin-bottom:8px">${score===QUIZ_QUESTIONS[subject].length?'Perfect! Mwashinka!':score>0?'Good effort! Keep going!':'Try again — you can do it!'}</div>
-      <div style="color:#f5b400;font-weight:600;font-size:15px;margin-bottom:24px">+${score*50} points earned!</div>
-      ${QUIZ_QUESTIONS[subject].map((q,i)=>`
-        <div style="text-align:left;margin-bottom:14px">
-          <div style="font-size:13px;font-weight:600;margin-bottom:6px">${q.q}</div>
-          ${q.options.map((o,j)=>`<div class="quiz-opt ${j===q.answer?'correct':quizAnswers[i]===j&&j!==q.answer?'wrong':''}" style="cursor:default;margin-bottom:5px;padding:9px 14px;font-size:13px">${String.fromCharCode(65+j)}. ${o} ${j===q.answer?'✓':quizAnswers[i]===j&&j!==q.answer?'✗':''}</div>`).join('')}
-        </div>`).join('')}
-      <button class="primary-btn" onclick="startQuiz()">Try Again</button>
-    </div>`;
-}
-
-function buildEssay(){
-  return `
-    <div class="page-title">Assignment Help 📝</div>
-    <div class="page-sub">Get AI feedback on your writing and grammar</div>
-    <div class="card">
-      <div class="section-title">✍️ Paste Your Writing Below</div>
-      <textarea class="textarea" id="essayInput" placeholder="Paste your essay, paragraph or any writing here and get instant AI feedback on grammar, structure and how to improve...">${essay}</textarea>
-      <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
-        <button class="primary-btn" onclick="checkEssay()" ${essayLoading?'disabled':''}>
-          ${essayLoading?'Analysing...':'Get AI Feedback →'}
-        </button>
-        <button class="primary-btn" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1)" onclick="clearEssay()">Clear</button>
-      </div>
-      ${essayFeedback?`<div class="feedback-box">${essayFeedback}</div>`:''}
-    </div>
-    <div class="card">
-      <div class="section-title">💡 Writing Tips</div>
-      ${["Plan your essay before writing — use a mind map","Use a strong topic sentence to start each paragraph","Include examples from Zambian literature where relevant","Always proofread before submitting"].map((t,i)=>`
-        <div style="display:flex;gap:10px;margin-bottom:10px;font-size:13px;color:#c8d0e8">
-          <span style="color:#2a5298;font-weight:700">${i+1}.</span>${t}
-        </div>`).join('')}
-    </div>`;
-}
-
-function buildProgress(){
-  const pcts=[72,88,65,91];
-  return `
-    <div class="page-title">My Progress 📊</div>
-    <div class="page-sub">Your performance across all subjects</div>
-    <div class="grid2">
-      ${SUBJECTS.map((s,i)=>`
-        <div class="stat-card">
-          <div style="display:flex;justify-content:space-between;margin-bottom:10px">
-            <span style="font-weight:600">${s}</span>
-            <span style="color:${pcts[i]>=80?'#00c864':pcts[i]>=60?'#f5b400':'#ff6b6b'};font-weight:700">${pcts[i]}%</span>
-          </div>
-          <div class="progress-bar-bg"><div class="progress-bar" style="width:${pcts[i]}%"></div></div>
-          <div style="font-size:12px;color:#8899bb;margin-top:6px">${pcts[i]>=80?'Excellent':'pcts[i]>=60?'Good — keep going':'Needs attention'}</div>
-        </div>`).join('')}
-    </div>
-    <div class="card">
-      <div class="section-title">📅 Weekly Activity</div>
-      <div style="display:flex;gap:8px;align-items:flex-end;height:90px">
-        ${["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map((d,i)=>{
-          const h=[60,80,45,90,70,30,55][i];
-          return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
-            <div style="width:100%;height:${h}px;background:${i===3?'linear-gradient(180deg,#f5b400,#e09000)':'linear-gradient(180deg,#2a5298,#1a3a6e)'};border-radius:6px 6px 0 0"></div>
-            <span style="font-size:11px;color:#8899bb">${d}</span>
-          </div>`;}).join('')}
-      </div>
-    </div>`;
-}
-
-function buildRewards(){
-  return `
-    <div class="page-title">Rewards 🏆</div>
-    <div class="page-sub">Earn badges and climb the leaderboard</div>
-    <div class="grid2">
-      <div class="card">
-        <div class="section-title">🎖️ Your Badges</div>
-        <div class="badge-grid">
-          ${BADGES.map(b=>`
-            <div class="badge-item ${b.earned?'earned':''}" style="opacity:${b.earned?1:0.4}">
-              <div class="badge-emoji">${b.icon}</div>
-              <div class="badge-name">${b.name}</div>
-              <div class="badge-desc">${b.desc}</div>
-            </div>`).join('')}
-        </div>
-      </div>
-      <div class="card">
-        <div class="section-title">🥇 Leaderboard</div>
-        ${LEADERBOARD.map(l=>`
-          <div class="leaderboard-row ${l.name==='You'?'you':''}">
-            <span style="font-size:18px;width:32px;text-align:center">${l.badge}</span>
-            <div style="flex:1">
-              <div style="font-size:14px;font-weight:500">${l.name}</div>
-              <div style="font-size:12px;color:#8899bb">${l.grade}</div>
-            </div>
-            <span style="font-size:14px;font-weight:700;color:#f5b400">${l.points.toLocaleString()} pts</span>
-          </div>`).join('')}
-      </div>
-    </div>`;
-}
-
-function buildNotifications(){
-  return `
-    <div class="page-title">Notifications 🔔</div>
-    <div class="page-sub">Stay on top of your studies</div>
-    <div class="card">
-      ${[...ANNOUNCEMENTS,
-        {title:"Quiz Completed!",msg:"You scored 2/2 on Mathematics quiz. +100 points added!",time:"3h ago",icon:"🎯"},
-        {title:"Study Streak",msg:"Mwashinka! You have studied for 3 days in a row!",time:"1d ago",icon:"🔥"}
-      ].map(a=>`
-        <div class="notif-item">
-          <div style="font-size:22px">${a.icon}</div>
-          <div>
-            <div style="font-size:14px;font-weight:600;margin-bottom:3px">${a.title}</div>
-            <div style="font-size:13px;color:#8899bb">${a.msg}</div>
-            <div style="font-size:11px;color:#556;margin-top:4px">${a.time}</div>
-          </div>
-        </div>`).join('')}
-    </div>`;
-}
-
-function buildTeacherDashboard(){
-  return `
-    <div class="page-title">Teacher Dashboard 👨‍🏫</div>
-    <div class="page-sub">Welcome back! Here is your class overview</div>
-    <div class="grid3">
-      <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-val">34</div><div class="stat-label">Total Students</div></div>
-      <div class="stat-card"><div class="stat-icon">📋</div><div class="stat-val">8</div><div class="stat-label">Active Assignments</div></div>
-      <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-val">127</div><div class="stat-label">Submissions</div></div>
-    </div>
-    ${buildNotifications()}`;
-}
-
-function buildTeacherTools(){
-  return `
-    <div class="page-title">Teacher Tools 🛠️</div>
-    <div class="page-sub">Create assignments, upload notes and generate tests</div>
-    <div class="teacher-tabs">
-      ${["overview","assignments","notes","tests"].map(t=>`<button class="t-tab ${teacherTab===t?'active':''}" onclick="setTeacherTab('${t}')">${t.charAt(0).toUpperCase()+t.slice(1)}</button>`).join('')}
-    </div>
-    ${teacherTab==='overview'?`
-      <div class="card"><div class="section-title">📊 Quick Stats</div>
-        <div class="grid2">
-          <div class="stat-card"><div class="stat-icon">📝</div><div class="stat-val">8</div><div class="stat-label">Assignments This Week</div></div>
-          <div class="stat-card"><div class="stat-icon">⚠️</div><div class="stat-val">5</div><div class="stat-label">Students Need Help</div></div>
-        </div>
-      </div>`:
-    teacherTab==='assignments'?`
-      <div class="card"><div class="section-title">➕ Create Assignment</div>
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <input class="chat-input" placeholder="Assignment title..." style="width:100%"/>
-          ${subjectPills()}
-          <textarea class="textarea" placeholder="Assignment description..." style="min-height:100px"></textarea>
-          <button class="primary-btn" style="width:fit-content">Create Assignment →</button>
-        </div>
-      </div>`:
-    teacherTab==='notes'?`
-      <div class="card"><div class="section-title">📤 Upload Notes</div>
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <input class="chat-input" placeholder="Notes title..." style="width:100%"/>
-          ${subjectPills()}${gradePills()}
-          <textarea class="textarea" placeholder="Paste notes content here..."></textarea>
-          <button class="primary-btn" style="width:fit-content">Upload Notes →</button>
-        </div>
-      </div>`:
-    `<div class="card"><div class="section-title">🤖 AI Test Generator</div>
-        <div style="font-size:14px;color:#8899bb;margin-bottom:16px">Generate tests automatically using AI</div>
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <input class="chat-input" placeholder="Topic (e.g. Quadratic Equations, Photosynthesis...)" style="width:100%"/>
-          <div class="select-row">${["5 Questions","10 Questions","15 Questions"].map(n=>`<button class="select-pill">${n}</button>`).join('')}</div>
-          <div class="select-row">${["Multiple Choice","Short Answer","Mixed"].map(t=>`<button class="select-pill">${t}</button>`).join('')}</div>
-          <button class="primary-btn" style="width:fit-content">Generate Test with AI →</button>
-        </div>
-      </div>`}`;
-}
-
-function buildStudentProgress(){
-  return `
-    <div class="page-title">Student Progress 📊</div>
-    <div class="page-sub">Monitor your class performance</div>
-    <div class="card">
-      ${[
-        {name:"Mutinta C.",grade:"Grade 10",avg:92,color:"#2a5298"},
-        {name:"Chanda M.",grade:"Grade 11",avg:78,color:"#e09000"},
-        {name:"Lubasi T.",grade:"Grade 9",avg:55,color:"#00c864"},
-        {name:"Nalwimba K.",grade:"Grade 12",avg:88,color:"#9b59b6"},
-        {name:"Sitwala B.",grade:"Grade 10",avg:41,color:"#e74c3c"}
-      ].map(s=>`
-        <div class="student-row">
-          <div class="avatar" style="background:${s.color}">${s.name[0]}</div>
-          <div style="flex:1">
-            <div style="font-weight:600;font-size:14px">${s.name}</div>
-            <div style="font-size:12px;color:#8899bb">${s.grade}</div>
-          </div>
-          <div style="text-align:right">
-            <div style="font-weight:700;font-size:15px">${s.avg}%</div>
-            <span class="${s.avg>=80?'green-chip':s.avg>=60?'yellow-chip':'red-chip'}">${s.avg>=80?'Excellent':s.avg>=60?'Good':'Needs Help'}</span>
-          </div>
-        </div>`).join('')}
-    </div>`;
-}
-
-function buildParentDashboard(){
-  const pcts=[72,88,65,91];
-  return `
-    <div class="page-title">Parent Dashboard 👨‍👩‍👧</div>
-    <div class="page-sub">Your child's learning summary</div>
-    <div class="grid3">
-      <div class="stat-card"><div class="stat-icon">🔥</div><div class="stat-val" style="color:#f5b400">3 Days</div><div class="stat-label">Study Streak</div></div>
-      <div class="stat-card"><div class="stat-icon">🏅</div><div class="stat-val" style="color:#2a5298">1,200</div><div class="stat-label">Points Earned</div></div>
-      <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-val" style="color:#00c864">14</div><div class="stat-label">Quizzes Done</div></div>
-    </div>
-    <div class="card">
-      <div class="section-title">📊 Subject Performance</div>
-      ${SUBJECTS.map((s,i)=>`
-        <div style="margin-bottom:14px">
-          <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px">
-            <span>${s}</span>
-            <span style="color:${pcts[i]>=80?'#00c864':pcts[i]>=60?'#f5b400':'#ff6b6b'};font-weight:700">${pcts[i]}%</span>
-          </div>
-          <div class="progress-bar-bg"><div class="progress-bar" style="width:${pcts[i]}%"></div></div>
-        </div>`).join('')}
-    </div>`;
-}
-
-// EVENT HANDLERS
-function attachEvents(){}
-
-function loginAs(r){ role=r; screen='app'; activeTab='dashboard'; render(); }
-function logout(){ screen='login'; role=null; activeTab='dashboard'; render(); }
-function setTab(t){ activeTab=t; render(); if(t==='ai') setTimeout(scrollChat,100); }
-function setSubject(s){ subject=s; render(); }
-function setGrade(g){ grade=g; render(); }
-function setTeacherTab(t){ teacherTab=t; render(); }
-
-async function sendAI(){
-  const input=document.getElementById('aiInput');
-  if(!input||!input.value.trim()||aiLoading) return;
-  const userMsg=input.value.trim();
-  aiMessages.push({role:'user',text:userMsg});
-  aiLoading=true;
-  render();
-  try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        system:`You are Chenjela, a friendly AI study assistant for Zambian secondary school students (Grades 8-12). Help with English, Mathematics, Science, and Literature. Give clear step-by-step explanations. Use simple language appropriate for Zambian students. Reference the Zambian curriculum where relevant. Be warm and encouraging. Occasionally use Zambian expressions like 'Mwashinka!' (Well done!) to feel local. Keep answers concise but complete. Current subject: ${subject}, Grade: ${grade}.`,
-        messages:aiMessages.filter((_,i)=>i>0||aiMessages[0].role!=='assistant').map(m=>({role:m.role==='user'?'user':'assistant',content:m.text}))
-      })
-    });
-    const data=await res.json();
-    const reply=data.content?.map(c=>c.text||'').join('')||'Sorry, I could not get a response. Please try again.';
-    aiMessages.push({role:'assistant',text:reply});
-    points+=10;
-  }catch{
-    aiMessages.push({role:'assistant',text:'Connection error. Please check your internet and try again.'});
-  }
-  aiLoading=false;
-  render();
-}
-
-async function checkEssay(){
-  const input=document.getElementById('essayInput');
-  if(!input||!input.value.trim()||essayLoading) return;
-  essay=input.value.trim();
-  essayLoading=true;
-  essayFeedback=null;
-  render();
-  try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        system:'You are an English teacher for Zambian secondary school students. Review the writing and provide: 1) A score out of 10, 2) Three specific strengths, 3) Three specific improvements needed. Be encouraging and constructive. Format clearly with sections.',
-        messages:[{role:'user',content:`Please review this writing:\n\n${essay}`}]
-      })
-    });
-    const data=await res.
+      <div class="sidebar-role"
