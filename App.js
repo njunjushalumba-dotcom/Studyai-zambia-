@@ -56,7 +56,7 @@ function loginPage(){
     <button class="role-btn" onclick="login('student')"><span style="font-size:22px">🎒</span><div><div style="font-weight:600">Student</div><div style="font-size:12px;color:#8899bb">AI help, quizzes and notes</div></div></button>
     <button class="role-btn" onclick="login('teacher')"><span style="font-size:22px">👨‍🏫</span><div><div style="font-weight:600">Teacher</div><div style="font-size:12px;color:#8899bb">Manage classes and progress</div></div></button>
     <button class="role-btn" onclick="login('parent')"><span style="font-size:22px">👨‍👩‍👧</span><div><div style="font-weight:600">Parent</div><div style="font-size:12px;color:#8899bb">Monitor your child</div></div></button>
-    <div style="text-align:center;font-size:11px;color:#445;margin-top:16px">Made in Zambia 🇿🇲 by Njunjusha Alumba</div>
+    <div style="text-align:center;font-size:11px;color:#445;margin-top:16px">Made in Zambia 🇿🇲 by Precious Njunju shalumba</div>
   </div></div>`;
 }
 
